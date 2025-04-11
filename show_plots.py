@@ -11,6 +11,7 @@ def show_data():
     total_rows = df.index.size  # Counts the number of rows
 
     pd.set_option('display.max_columns', None)  # Display all columns
+    pd.set_option('display.max_rows', None) # Display all rows
     pd.set_option('display.expand_frame_repr', None)  # Prevents wrap around
 
     # Print the dataframe and total number of rows
