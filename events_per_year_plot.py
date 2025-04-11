@@ -30,7 +30,7 @@ def prepare_data_year():
     # Group events per year
     events_per_year = df.groupby('year').size().reset_index(name='Number_of_events')
     '''
-    groups by year and counts how many times the same year appears(.size)
+    groups by year (df.groupby()) and counts how many times the same year appears(.size())
     turns year index into regular column(reset_index)
     adds new column to display count per year (name=)
     '''
@@ -77,5 +77,3 @@ def bar_plot(events_per_year, save=False):
 
     else:
         plt.show()
-
-    # Clear the plot after saving or viewing to avoid overlap
