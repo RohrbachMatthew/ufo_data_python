@@ -1,7 +1,6 @@
 # This file shows all events per country
-
+import matplotlib.pyplot as plt
 import pandas as pd
-import matplotlib
 import seaborn as sns
 from create_df import fetch_data
 
@@ -29,26 +28,32 @@ def prepare_data_country():
     df['country'] = df['country'].astype('category')
 
     # Group events by country
-    events_per_country = df.groupby('country').size().reset_index(name='Events_per_country')
+    events_per_country = df.groupby('country', observed=False).size().reset_index(name='Events_per_country')
 
     return events_per_country
     # Remove # to print
     # print(events_per_country)
 
 # make bar plot
-def country_bar_plot():
+def country_bar_plot(events_per_country, save=False):
 
     # Size of plot
+    plt.figure(figsize=(8, 12))
 
     # Seaborn creates the bar plot
     # x = horizontal, y = vertical, data= tells where to get the data from
+    sns.barplot(x='country', y='Events_per_country', data=events_per_country)
 
     # X-Axis label
-
+    plt.xlabel('Country')
     # Y-Axis label
-
+    plt.ylabel('Events Per Country')
     # Title of plot
+    plt.title('Number Of Events Reported Per Country')
 
-    # if save to save plot as .png
+    # if save for saving plot as .png
+    if save:
+        plt.savefig('events_per_country.png')
 
-prepare_data_country()
+    else:
+        plt.show()

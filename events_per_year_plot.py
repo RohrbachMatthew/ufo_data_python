@@ -36,8 +36,8 @@ def prepare_data_year():
     '''
 
 
-    # Filter out results with less than 1 event per year
-    events_per_year = events_per_year[events_per_year['Number_of_events'] > 100]
+    # Filter out results greater than 1 event per year
+    events_per_year = events_per_year[events_per_year['Number_of_events'] > 1]
     '''
     Selecting specific rows from events_per_year
     selects the column 'Number_of_events' from [events_per_year (this filters while keeping structure)
@@ -51,7 +51,7 @@ def prepare_data_year():
 # Make Bar Plot with data, Uses events_per_year as params
 def bar_plot(events_per_year, save=False):
     # Sets size of plot
-    plt.figure(figsize=(12, 8))
+    plt.figure(figsize=(15, 8))
 
     # Seaborn creates the bar plot
     # x = horizontal, y = vertical, data= tells where to get the data from
@@ -62,7 +62,7 @@ def bar_plot(events_per_year, save=False):
     # Make y-axis label
     plt.ylabel('Events per year')
     # Make Title of plot
-    plt.title('Events per year with over 100 sightings')
+    plt.title('Events per year')
 
     # Define the limits of the plot
     # Sets the highest value to 8,000 to ensure it scales right
@@ -73,7 +73,11 @@ def bar_plot(events_per_year, save=False):
 
     if save:
         # Optional save plot as image (remove #'s to run)
-        plt.savefig('events_per_year_over100_barplot.png')
+        plt.savefig('events_per_year.png')
 
     else:
         plt.show()
+
+# Remove # to view plot when running the script by itself.
+#events_per_year = prepare_data_year()
+#bar_plot(events_per_year)
