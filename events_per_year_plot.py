@@ -53,7 +53,7 @@ def bar_plot(events_per_year, save=False):
     # Sets size of plot
     plt.figure(figsize=(15, 8))
 
-    # Seaborn creates the bar plot
+    # Seaborn(sns) creates the bar plot
     # x = horizontal, y = vertical, data= tells where to get the data from
     sns.barplot(x='year', y='Number_of_events', data=events_per_year)
 
@@ -72,7 +72,6 @@ def bar_plot(events_per_year, save=False):
     plt.xticks(rotation=85)
 
     if save:
-        # Optional save plot as image (remove #'s to run)
         plt.savefig('events_per_year.png')
 
     else:
