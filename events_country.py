@@ -25,6 +25,7 @@ def prepare_data_country():
     # Drop NA values in country column
     df = df.dropna(subset=['country'])
 
+    # convert to categorical data type
     df['country'] = df['country'].astype('category')
 
     # Group events by country

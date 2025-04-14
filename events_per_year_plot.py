@@ -24,24 +24,28 @@ def prepare_data_year():
     # Drop null values
     df = df.dropna(subset=['datetime'])
 
-    # Pandas extract all years from datetime column, set as int instead of float
+    # Creates new column in same dataframe
+    # Converts to a datetime object from datetime column
+    # Extracts year form datetime (dt.year)
+    # Set as int instead of float (.astype())
     df['year'] = pd.to_datetime(df['datetime']).dt.year.astype(int)
 
     # Group events per year
-    events_per_year = df.groupby('year').size().reset_index(name='Number_of_events')
     '''
     groups by year (df.groupby()) and counts how many times the same year appears(.size())
     turns year index into regular column(reset_index)
     adds new column to display count per year (name=)
     '''
+    events_per_year = df.groupby('year').size().reset_index(name='Number_of_events')
 
 
     # Filter out results greater than 1 event per year
-    events_per_year = events_per_year[events_per_year['Number_of_events'] > 1]
     '''
     Selecting specific rows from events_per_year
     selects the column 'Number_of_events' from [events_per_year (this filters while keeping structure)
     '''
+    events_per_year = events_per_year[events_per_year['Number_of_events'] > 1]
+
     return events_per_year
 
 # Test Print the data
