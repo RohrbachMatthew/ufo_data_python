@@ -8,9 +8,8 @@ TODO:
     - Show the time of day when sightings occur more frequently
     - Seasonal trend of sightings
 
-    TODO: ADD DAY OF MONTH PLOT
     TODO: DAY OF WEEK PLOT
-
+    TODO: Time of day plot
 """
 
 import pandas as pd
@@ -76,7 +75,6 @@ def day_of_month_bar(day_of_month, save=False):
     else:
         plt.show()
 
-######### TODO: ADD DAY OF MONTH PLOT
 
 def prepare_day_of_week():
     rows, columns = fetch_data()
@@ -103,10 +101,52 @@ def prepare_time_day():
     df.replace('', pd.NA, inplace=True)
     df.dropna(subset=['datetime'])
 
+    # Convert to datetime
+    df['datetime'] = pd.to_datetime(df['datetime'])
+    # Extract hour (dt.hour)
+    df['hour'] = df['datetime'].dt.hour
+    # Convert time to 12-hour AM PM time format
+    df['formatted_time'] = pd.to_datetime(df['hour'], format='%H').dt.strftime('%I %p')
+
+    hourly_events = df.groupby('formatted_time').size().reset_index(name='event_count')
+    hourly_events = hourly_events.sort_values(by='event_count')
+    return hourly_events
+    # Remove # to test print
+    # print(hourly_events)
+
+def time_day_line(hourly_events, save=False):
+    plt.figure(figsize=(20, 10))
+    ax = sns.barplot(x='formatted_time', y='event_count', data=hourly_events)
+
+    # Get the positions of the bars
+    bar_positions = ax.get_xticks()
+
+    # add the labels on each bar
+    for position, row in zip(bar_positions, hourly_events.iterrows()):
+        index, row_data = row
+        ax.annotate(f'{row_data['event_count']}',
+                    (position, 100),  # Lifts the numbers off the bottom of x-axis in plot
+                    ha='center', va='bottom', fontsize=13, color='black')
+
+    plt.xlabel('Time of Day', fontsize=15)
+    plt.ylabel('Total amount of Sightings', fontsize=28)
+    plt.title('Amount of sightings per hour', fontsize=28)
+    plt.xticks(rotation=45, fontsize=15)
+
+    if save:
+        plt.savefig('events_per_hour_plot')
+    else:
+        plt.show()
+
 # Remove # to run functions individually
+
 # EVENTS PER DAY IN MONTH (1-31)
 #events_per_day = prepare_day_of_month()
 #day_of_month_bar(events_per_day)
 
 # EVENTS PER DAY OF WEEK (MON-SUN)
 # events_per_day_week = prepare_day_of_week()
+
+# EVENTS PER HOUR OF THE DAY (12-hour format)
+# events_per_hour = prepare_time_day()
+# time_day_line(events_per_hour)
