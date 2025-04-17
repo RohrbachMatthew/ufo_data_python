@@ -60,7 +60,7 @@ def states_us_barplot(state_count, save=False):
     plt.figure(figsize=(30, 8))
 
     # Seaborn bar plot, x = horizontal, y = vertical, data= tells where to get the data from
-
+    # ax is a Seaborn generated plot object
     ax = sns.barplot(x='state', y='num_of_events', data=state_count)
 
 

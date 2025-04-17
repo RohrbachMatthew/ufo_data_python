@@ -32,16 +32,49 @@ def prepare_day_of_month():
     # Drop Na values
     df = df.dropna(subset=['datetime'])
 
-    # Creates new column in same dataframe
+    # Creates new column in the same dataframe
     # Converts to a datetime object from datetime column
     # Extracts day from datetime (dt.day)
     # Set as int instead of float (.astype())
     df['day_of_month'] = pd.to_datetime(df['datetime']).dt.day.astype(int)
 
     # Group the data by number of sightings per days of the week
-    day_of_month = df.groupby('day_of_month').size().reset_index(name='Per Day Month')
+    day_of_month = df.groupby('day_of_month').size().reset_index(name='Per_Day_Month')
 
     return day_of_month
+
+def day_of_month_bar(day_of_month, save=False):
+
+    # size of plot
+    plt.figure(figsize=(25, 10))
+
+    # Seaborn creates the bar plot, ax is the seaborn generated plot object
+    # x = horizontal, y = vertical, data= tells where to get the data from
+    ax = sns.barplot(x='day_of_month', y='Per_Day_Month', data=day_of_month)
+
+    # Get the positions of the bars
+    bar_positions = ax.get_xticks()
+
+    # add the labels on each bar
+    for position, row in zip(bar_positions, day_of_month.iterrows()):
+        index, row_data = row
+        ax.annotate(f'{row_data['Per_Day_Month']}',
+                    (position, 100),  # Lifts the numbers off the bottom of x-axis in plot
+                    ha='center', va='bottom', fontsize=13, color='black')
+
+
+    # x-axis label
+    plt.xlabel('Day Of Month')
+    # y-axis label
+    plt.ylabel('Sightings total')
+    # title
+    plt.title('Total Per Day In Month For All Data')
+
+    # Save plot option
+    if save:
+        plt.savefig('events_per_day_of_month')
+    else:
+        plt.show()
 
 ######### TODO: ADD DAY OF MONTH PLOT
 
@@ -71,5 +104,9 @@ def prepare_time_day():
     df.dropna(subset=['datetime'])
 
 # Remove # to run functions individually
-# prepare_day_of_month()
-# prepare_day_of_week()
+# EVENTS PER DAY IN MONTH (1-31)
+#events_per_day = prepare_day_of_month()
+#day_of_month_bar(events_per_day)
+
+# EVENTS PER DAY OF WEEK (MON-SUN)
+# events_per_day_week = prepare_day_of_week()
