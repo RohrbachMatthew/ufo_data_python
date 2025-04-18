@@ -27,6 +27,7 @@ def prepare_data_country():
 
     # convert to categorical data type
     df['country'] = df['country'].astype('category')
+    df['country'] = df['country'].str.upper()
 
     # Group events by country
     events_per_country = df.groupby('country', observed=False).size().reset_index(name='Events_per_country')
@@ -39,18 +40,21 @@ def prepare_data_country():
 def country_bar_plot(events_per_country, save=False):
 
     # Size of plot
-    plt.figure(figsize=(8, 12))
+    plt.figure(figsize=(8, 8))
 
     # Seaborn creates the bar plot
     # x = horizontal, y = vertical, data= tells where to get the data from
     sns.barplot(x='country', y='Events_per_country', data=events_per_country)
 
     # X-Axis label
-    plt.xlabel('Country')
+    plt.xlabel('')
     # Y-Axis label
-    plt.ylabel('Events Per Country')
+    plt.ylabel('Total Sightings', fontsize=20)
     # Title of plot
-    plt.title('Number Of Events Reported Per Country')
+    plt.title('Total Sightings Per Country', fontsize=25)
+
+    plt.xticks(fontsize=20)
+    plt.yticks(fontsize=12)
 
     # if save for saving plot as .png
     if save:
@@ -58,3 +62,7 @@ def country_bar_plot(events_per_country, save=False):
 
     else:
         plt.show()
+
+# Remove # to view plot
+#events_country = prepare_data_country()
+#country_bar_plot(events_country)

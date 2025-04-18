@@ -9,7 +9,7 @@ from create_df import fetch_data
 from events_per_year_plot import prepare_data_year, bar_plot
 from events_country import prepare_data_country, country_bar_plot
 from events_in_us import prep_data_states_us, states_us_barplot
-from temporal_patterns_worldwide import prepare_day_of_month, day_of_month_bar, prepare_time_day, time_day_line
+from temporal_patterns_worldwide import prepare_day_of_month, day_of_month_bar, prepare_time_day, time_hourly_bar
 
 def show_data():
     rows, columns = fetch_data()
@@ -140,15 +140,15 @@ def main():
         *    2. Save plot as .png                   *
         *********************************************
         """)
-        user = input("Enter choice")
+        user = input("Enter choice: ")
         if user == '1':
             print('Loading Plot...')
             events_per_hour = prepare_time_day()
-            time_day_line(events_per_hour)
+            time_hourly_bar(events_per_hour)
         if user == '2':
             print('Saving Plot....')
             events_per_hour = prepare_time_day()
-            time_day_line(events_per_hour, save=True)
+            time_hourly_bar(events_per_hour, save=True)
             print('Plot Saved Successfully')
 
 if __name__ == '__main__':

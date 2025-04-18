@@ -55,25 +55,26 @@ def prepare_data_year():
 # Make Bar Plot with data, Uses events_per_year as params
 def bar_plot(events_per_year, save=False):
     # Sets size of plot
-    plt.figure(figsize=(15, 8))
+    plt.figure(figsize=(20, 8))
 
     # Seaborn(sns) creates the bar plot
     # x = horizontal, y = vertical, data= tells where to get the data from
     sns.barplot(x='year', y='Number_of_events', data=events_per_year)
 
     # Make x-axis label
-    plt.xlabel('Year')
+    plt.xlabel('Year', fontsize=20)
     # Make y-axis label
-    plt.ylabel('Events per year')
+    plt.ylabel('Total Sightings', fontsize=25)
     # Make Title of plot
-    plt.title('Events per year')
+    plt.title('Events Per Year\n1931 - 2014', fontsize=25)
 
     # Define the limits of the plot
     # Sets the highest value to 8,000 to ensure it scales right
     plt.ylim(0, 8000)
 
     # Rotates the labels 45 degrees to make them easier to read
-    plt.xticks(rotation=85)
+    plt.xticks(rotation=80, fontsize=12)
+    plt.yticks(fontsize=15)
 
     if save:
         plt.savefig('events_per_year.png')

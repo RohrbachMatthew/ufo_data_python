@@ -9,13 +9,15 @@ TODO:
     - Seasonal trend of sightings
 
     TODO: DAY OF WEEK PLOT
-    TODO: Time of day plot
 """
 
 import pandas as pd
 import matplotlib.pyplot as plt
 import seaborn as sns
 from create_df import fetch_data
+
+# For custom legend labels
+import matplotlib.patches as mpatches
 
 # prepare and plot sightings per month day
 def prepare_day_of_month():
@@ -47,9 +49,24 @@ def day_of_month_bar(day_of_month, save=False):
     # size of plot
     plt.figure(figsize=(25, 10))
 
+    # Function to determine color based on values
+    def get_color(value):
+        if value >= 5000:
+            return "red"
+
+        elif 3000 < value < 5000:
+            return "yellow"
+
+        elif 2000 < value < 3000:
+            return "blue"
+
+        else:
+            return 'grey'
+    colors = day_of_month['Per_Day_Month'].apply(get_color).to_list()
+
     # Seaborn creates the bar plot, ax is the seaborn generated plot object
     # x = horizontal, y = vertical, data= tells where to get the data from
-    ax = sns.barplot(x='day_of_month', y='Per_Day_Month', data=day_of_month)
+    ax = sns.barplot(x='day_of_month', y='Per_Day_Month', data=day_of_month, hue='day_of_month', palette=colors)
 
     # Get the positions of the bars
     bar_positions = ax.get_xticks()
@@ -61,13 +78,23 @@ def day_of_month_bar(day_of_month, save=False):
                     (position, 100),  # Lifts the numbers off the bottom of x-axis in plot
                     ha='center', va='bottom', fontsize=13, color='black')
 
+    # Define custom legend labels
+    red_patch = mpatches.Patch(color='red', label='5000+ sightings')
+    yellow_patch = mpatches.Patch(color='yellow', label='4000 - 5000 sightings')
+    blue_patch = mpatches.Patch(color='blue', label='Less than 3000 sightings')
+    grey_patch = mpatches.Patch(color='grey', label='Less than 2000 sightings')
+    # Add the custom legend to the plot
+    plt.legend(handles=[red_patch, yellow_patch, blue_patch, grey_patch], fontsize=20)
 
     # x-axis label
-    plt.xlabel('Day Of Month')
+    plt.xlabel('Day Of The Month', fontsize=20)
     # y-axis label
-    plt.ylabel('Sightings total')
+    plt.ylabel('Total amount of Sightings', fontsize=25)
     # title
-    plt.title('Total Per Day In Month For All Data')
+    plt.title('Total Sightings For The Day Number In All Months', fontsize=25)
+
+    plt.xticks(fontsize=15)
+    plt.yticks(fontsize=15)
 
     # Save plot option
     if save:
@@ -94,7 +121,7 @@ def prepare_day_of_week():
 # TODO: ADD DAY OF THE WEEK PLOT
 
 
-# TODO: ADD TIME OF DAY
+# Events Per Hour of the Day
 def prepare_time_day():
     rows, columns = fetch_data()
     df = pd.DataFrame(rows, columns=columns)
@@ -114,7 +141,8 @@ def prepare_time_day():
     # Remove # to test print
     # print(hourly_events)
 
-def time_day_line(hourly_events, save=False):
+# Events per hour plot
+def time_hourly_bar(hourly_events, save=False):
     plt.figure(figsize=(20, 10))
     ax = sns.barplot(x='formatted_time', y='event_count', data=hourly_events)
 
@@ -129,8 +157,8 @@ def time_day_line(hourly_events, save=False):
                     ha='center', va='bottom', fontsize=13, color='black')
 
     plt.xlabel('Time of Day', fontsize=15)
-    plt.ylabel('Total amount of Sightings', fontsize=28)
-    plt.title('Amount of sightings per hour', fontsize=28)
+    plt.ylabel('Total Amount of Sightings', fontsize=28)
+    plt.title('Amount of Sightings Rer Hour', fontsize=28)
     plt.xticks(rotation=45, fontsize=15)
 
     if save:
@@ -148,5 +176,5 @@ def time_day_line(hourly_events, save=False):
 # events_per_day_week = prepare_day_of_week()
 
 # EVENTS PER HOUR OF THE DAY (12-hour format)
-# events_per_hour = prepare_time_day()
-# time_day_line(events_per_hour)
+#events_per_hour = prepare_time_day()
+#time_hourly_bar(events_per_hour)

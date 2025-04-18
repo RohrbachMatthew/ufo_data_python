@@ -17,6 +17,7 @@ import matplotlib.pyplot as plt
 import seaborn as sns
 from create_df import fetch_data
 
+# Events Per State in US
 def prep_data_states_us():
     # Fetch Data
     rows, columns = fetch_data()
@@ -37,8 +38,10 @@ def prep_data_states_us():
     - Create a copy of DF, avoids SettingWithCopyWarning
     - Groups states with na values together, names them 'Unknown (No na values in this new df (filtered_df))
     - Remove # below to run and run test print'''
-    # filtered_df = filtered_df.copy()
+    filtered_df = filtered_df.copy()
     # filtered_df['state'] = filtered_df['state'].fillna('Unknown')
+
+    filtered_df['state'] = filtered_df['state'].str.upper()
 
     # Remove # to test print the data frame
     # print(filtered_df)
@@ -54,10 +57,10 @@ def prep_data_states_us():
 
     return state_count
 
-
+# Plot for Events per State
 def states_us_barplot(state_count, save=False):
     # Sets size of plot
-    plt.figure(figsize=(30, 8))
+    plt.figure(figsize=(25, 8))
 
     # Seaborn bar plot, x = horizontal, y = vertical, data= tells where to get the data from
     # ax is a Seaborn generated plot object
@@ -75,11 +78,14 @@ def states_us_barplot(state_count, save=False):
                     ha='center', va='bottom', fontsize=10, color='black')
 
     # make x-axis label
-    plt.xlabel('States')
+    plt.xlabel('States', fontsize=20)
     # make y-axis label
-    plt.ylabel('Events Per State')
+    plt.ylabel('Total Sightings', fontsize=30)
     # make title
-    plt.title('Events per State in the US')
+    plt.title('Total Sightings In Each State In US', fontsize=30)
+
+    plt.xticks(fontsize=15)
+    plt.yticks(fontsize=15)
 
     if save:
         plt.savefig('events_per_state_us.png')
@@ -87,5 +93,5 @@ def states_us_barplot(state_count, save=False):
         plt.show()
 
 # Remove # below to run
-# events_per_state = prep_data_states_us()
-# states_us_barplot(events_per_state)
+#events_per_state = prep_data_states_us()
+#states_us_barplot(events_per_state)
