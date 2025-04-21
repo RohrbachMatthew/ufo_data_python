@@ -2,15 +2,14 @@
 # US has most of the data, looking for insights from other countries
 
 import pandas as pd
-import matplotlib as plt
+import matplotlib.pyplot as plt
 import seaborn as sns
-from pandas import DataFrame
 
 from create_df import fetch_data
 
 def prepare_month_non_us():
     rows, columns = fetch_data()
-    df = DataFrame(rows, columns=columns)
+    df = pd.DataFrame(rows, columns=columns)
 
     # Remove NA
     df.replace('', pd.NA, inplace=True)
@@ -25,4 +24,23 @@ def prepare_month_non_us():
 
     return months
 
-def month_non_us_plot(month, save=False):
+def month_non_us_plot(months, save=False):
+
+    # Size of plot
+    plt.figure(figsize=(10, 8))
+
+    sns.lineplot(x='month', y='per_month', data=months)
+
+    plt.xlabel('Month', fontsize='16')
+    plt.ylabel('Total Sightings', fontsize='16')
+    plt.title('Total Sightings For Each Month\n (non-us)', fontsize='16')
+
+    plt.show()
+
+    if save:
+        plt.savefig('per_month_non_us')
+    else:
+        plt.show()
+
+month_data = prepare_month_non_us()
+month_non_us_plot(month_data)

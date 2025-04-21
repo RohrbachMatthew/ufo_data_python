@@ -19,7 +19,39 @@ from create_df import fetch_data
 # For custom legend labels
 import matplotlib.patches as mpatches
 
-# prepare and plot sightings per month day
+# Prepare and plot Sightings per month
+def prepare_month():
+    rows, columns = fetch_data()
+    df = pd.DataFrame(rows, columns=columns)
+
+    # Remove NA
+    df.replace('', pd.NA, inplace=True)
+
+    df = df.dropna(subset=['datetime'])
+
+    df['month'] = pd.to_datetime(df['datetime']).dt.month.astype(int)
+
+    months = df.groupby('month').size().reset_index(name='per_month')
+
+    return months
+
+def month_plot(months, save=False):
+    plt.figure(figsize=(10, 8))
+
+    sns.lineplot(x='month', y='per_month', data=months)
+
+    plt.xlabel('Month', fontsize='16')
+    plt.ylabel('Total Sightings', fontsize='16')
+    plt.title('Total Sightings For Each Month\n (World Wide)', fontsize='16')
+
+    plt.show()
+
+    if save:
+        plt.savefig('per_month_ww')
+    else:
+        plt.show()
+
+# prepare and plot sightings per day in months
 def prepare_day_of_month():
     rows, columns = fetch_data()
 
@@ -167,6 +199,10 @@ def time_hourly_bar(hourly_events, save=False):
         plt.show()
 
 # Remove # to run functions individually
+
+# EVENTS PER MONTH
+events_per_month = prepare_month()
+month_plot(events_per_month)
 
 # EVENTS PER DAY IN MONTH (1-31)
 #events_per_day = prepare_day_of_month()
