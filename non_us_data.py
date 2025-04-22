@@ -35,12 +35,10 @@ def month_non_us_plot(months, save=False):
     plt.ylabel('Total Sightings', fontsize='16')
     plt.title('Total Sightings For Each Month\n (non-us)', fontsize='16')
 
-    plt.show()
-
     if save:
-        plt.savefig('per_month_non_us')
+        plt.savefig('plots\\per_month_non_us')
     else:
         plt.show()
 
-month_data = prepare_month_non_us()
-month_non_us_plot(month_data)
+# month_data = prepare_month_non_us()
+# month_non_us_plot(month_data)

@@ -58,7 +58,7 @@ def country_bar_plot(events_per_country, save=False):
 
     # if save for saving plot as .png
     if save:
-        plt.savefig('events_per_country.png')
+        plt.savefig('plots\\events_per_country.png')
 
     else:
         plt.show()

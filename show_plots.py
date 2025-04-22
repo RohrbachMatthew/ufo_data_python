@@ -9,7 +9,9 @@ from create_df import fetch_data
 from events_per_year_plot import prepare_data_year, bar_plot
 from events_country import prepare_data_country, country_bar_plot
 from events_in_us import prep_data_states_us, states_us_barplot
-from temporal_patterns_worldwide import prepare_day_of_month, day_of_month_bar, prepare_time_day, time_hourly_bar
+from temporal_patterns_worldwide import prepare_day_of_month, day_of_month_bar, prepare_time_day, time_hourly_bar, prepare_month, month_plot
+from geographic_world_wide import prepare_data_world_plot, world_plot
+from non_us_data import prepare_month_non_us, month_non_us_plot
 
 def show_data():
     rows, columns = fetch_data()
@@ -36,7 +38,10 @@ def main():
             *   3. Events Per Country          *
             *   4. Events Per State in US      *
             *   5. Events Per Day of Month     *
-            *   6. Events Per Hour Worldwide   *
+            *   6. Events Per Month Worldwide  *
+            *   7. Events Per Hour Worldwide   *
+            *   8. Events World Plot           *
+            *   9. Events Per Month Non US     *
             ************************************""")
 
         user = input("\nEnter Selection: ")
@@ -153,8 +158,32 @@ def main():
             if user == '3':
                 continue
 
-# Worldwide Sightings Per Hour
+# Events Per Month Worldwide
         elif user == '6':
+            print("""
+                *********************************************
+                *     Events Reported Month Worldwide      *
+                *********************************************
+                *       1. View the bar plot                *
+                *       2. Save plot as .png                *
+                *       3. Back to main menu                *
+                *********************************************
+                """)
+            user = input('Enter Choice: ')
+            if user == '1':
+                print('Loading Plot...')
+                months = prepare_month()
+                month_plot(months)
+            if user == '2':
+                print('Saving Plot...')
+                months = prepare_month()
+                month_plot(months, save=True)
+                print("Plot Saved Successfully")
+            if user == '3':
+                continue
+
+# Worldwide Sightings Per Hour
+        elif user == '7':
             print("""
             *********************************************
             *    Events Reported per Hour World Wide    *
@@ -175,6 +204,52 @@ def main():
                 time_hourly_bar(events_per_hour, save=True)
                 print('Plot Saved Successfully')
             # Back to main
+            if user == '3':
+                continue
+
+        elif user == '8':
+            print("""
+            *********************************************
+            *    Events Reported World Plot             *
+            *********************************************
+            *       1. View the bar plot                *
+            *       2. Save plot as .png                *
+            *       3. Back to main menu                *
+            *********************************************
+            """)
+            user = input('Enter Choice: ')
+            if user == '1':
+                print('Loading Plot...')
+                world_plot_data = prepare_data_world_plot()
+                world_plot(world_plot_data)
+            if user == '2':
+                print('Saving Plot...')
+                world_plot_data = prepare_data_world_plot()
+                world_plot(world_plot_data, save=True)
+                print("Plot Saved Successfully")
+            if user == '3':
+                continue
+
+        elif user == '9':
+            print("""
+            *********************************************
+            *    Events Reported Per Month Non US       *
+            *********************************************
+            *       1. View the bar plot                *
+            *       2. Save plot as .png                *
+            *       3. Back to main menu                *
+            *********************************************
+            """)
+            user = input('Enter Choice: ')
+            if user == '1':
+                print('Loading Plot...')
+                per_month = prepare_month_non_us()
+                month_non_us_plot(per_month)
+            if user == '2':
+                print('Saving Plot...')
+                per_month = prepare_month_non_us()
+                month_non_us_plot(per_month, save=True)
+                print("Plot Saved Successfully")
             if user == '3':
                 continue
 

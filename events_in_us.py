@@ -88,7 +88,7 @@ def states_us_barplot(state_count, save=False):
     plt.yticks(fontsize=15)
 
     if save:
-        plt.savefig('events_per_state_us.png')
+        plt.savefig('plots\\events_per_state_us.png')
     else:
         plt.show()
 

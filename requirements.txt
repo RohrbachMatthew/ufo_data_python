@@ -1,4 +1,6 @@
-mysql-connector-python
-pandas
-seaborn
-matplotlib
+mysql-connector-python~=9.2.0
+pandas~=2.2.3
+seaborn~=0.13.2
+matplotlib~=3.10.1
+mysql~=0.0.3
+geopandas~=1.0.1

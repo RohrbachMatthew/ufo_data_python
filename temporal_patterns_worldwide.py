@@ -44,10 +44,8 @@ def month_plot(months, save=False):
     plt.ylabel('Total Sightings', fontsize='16')
     plt.title('Total Sightings For Each Month\n (World Wide)', fontsize='16')
 
-    plt.show()
-
     if save:
-        plt.savefig('per_month_ww')
+        plt.savefig('plots\\per_month_worldwide')
     else:
         plt.show()
 
@@ -130,11 +128,11 @@ def day_of_month_bar(day_of_month, save=False):
 
     # Save plot option
     if save:
-        plt.savefig('events_per_day_of_month')
+        plt.savefig('plots\\events_per_day_of_month')
     else:
         plt.show()
 
-
+# Prep and plot day of the week
 def prepare_day_of_week():
     rows, columns = fetch_data()
     df = pd.DataFrame(rows, columns=columns)
@@ -149,9 +147,7 @@ def prepare_day_of_week():
     day_of_week = day_of_week.sort_values(by='Number per day')
 
     return day_of_week
-
-# TODO: ADD DAY OF THE WEEK PLOT
-
+# TODO: make plot for day of week
 
 # Events Per Hour of the Day
 def prepare_time_day():
@@ -194,15 +190,15 @@ def time_hourly_bar(hourly_events, save=False):
     plt.xticks(rotation=45, fontsize=15)
 
     if save:
-        plt.savefig('events_per_hour_plot')
+        plt.savefig('plots\\events_per_hour_plot')
     else:
         plt.show()
 
 # Remove # to run functions individually
 
 # EVENTS PER MONTH
-events_per_month = prepare_month()
-month_plot(events_per_month)
+# events_per_month = prepare_month()
+# month_plot(events_per_month)
 
 # EVENTS PER DAY IN MONTH (1-31)
 #events_per_day = prepare_day_of_month()

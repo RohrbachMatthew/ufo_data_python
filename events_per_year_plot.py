@@ -77,7 +77,7 @@ def bar_plot(events_per_year, save=False):
     plt.yticks(fontsize=15)
 
     if save:
-        plt.savefig('events_per_year.png')
+        plt.savefig('plots\\events_per_year.png')
 
     else:
         plt.show()
