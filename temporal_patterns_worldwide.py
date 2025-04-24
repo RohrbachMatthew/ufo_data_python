@@ -5,7 +5,6 @@ This file is meant for temporal patterns worldwide
     - Total sightings for each day of the week
 
 TODO:
-    - Show the time of day when sightings occur more frequently
     - Seasonal trend of sightings
 
     TODO: DAY OF WEEK PLOT

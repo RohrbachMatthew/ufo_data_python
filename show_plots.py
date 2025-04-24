@@ -33,15 +33,15 @@ def main():
             *       Pick a Graph to view       *
             ************************************
             *   Type 'q' to quit program       *
-            *   1. Show the UFO dataframe      *
-            *   2. Events Per Year             *
-            *   3. Events Per Country          *
-            *   4. Events Per State in US      *
-            *   5. Events Per Day of Month     *
-            *   6. Events Per Month Worldwide  *
-            *   7. Events Per Hour Worldwide   *
-            *   8. Events World Plot           *
-            *   9. Events Per Month Non US     *
+            *   1. Show the UFO dataframe **   *
+            *   2. Events Per Year        **   *
+            *   3. Events Per Country     **   *
+            *   4. Events Per State in US **   *
+            *   5. Events Per Day of Month **  *
+            *   6. Events Per Month Worldwide***
+            *   7. Events Per Hour Worldwide ***
+            *   8. Events World Plot   **      *
+            *   9. Events Per Month Non US **  *
             ************************************""")
 
         user = input("\nEnter Selection: ")
@@ -255,3 +255,86 @@ def main():
 
 if __name__ == '__main__':
     main()
+
+
+# NEW MENUS
+def menu():
+    while True:
+        print("""
+        *********************************************
+        *         UFO Sightings Main Menu           *
+        *********************************************
+        *       Type q To Quit The Program          *
+        *       1. View the Data Frame              *
+        *       2. World Wide Plots                 *
+        *       3. US Based Plots                   *
+        *********************************************
+        """)
+        user = input('Enter Choice: ')
+
+        if user == 'q':
+            print('Exiting Program...')
+            break
+
+        elif user == '1':
+            show_data()
+            continue
+
+    # WORLD WIDE PLOTS
+        elif user == '2':
+            print("""
+            *******************************************
+            *       UFO World Wide Plots Menu         *
+            *******************************************
+            *       1. Events World Plot              *
+            *       2. Events Per Country             *
+            *       3. Events Per Year                *
+            *       4. Events Per Month               *
+            *       5. Events Per Day of Month        *
+            *       6. Events Per Hour                *
+            *******************************************
+            """)
+            user = input('Enter Choice: ')
+
+            if user == '1':
+                print('World Wide Plot')
+
+            if user == '2':
+                print('Events per country')
+
+            if user == '3':
+                print('Events per year')
+
+            if user == '4':
+                print('Events per Month')
+
+            if user == '5':
+                print('Events Per Day Of Month')
+
+            if user == '6':
+                print('Event Per Hour')
+
+    # US-BASED PLOTS
+        elif user == '3':
+            print("""
+            *******************************************
+            *       UFO World Wide Plots Menu         *
+            *******************************************
+            *       1. Events Per State               *
+            *******************************************
+            """)
+
+            if user == '1':
+                print('Events Per State')
+
+        elif user == '4':
+            print("""
+            *******************************************
+            *       UFO Sightings Excluding US        *
+            *******************************************
+            *       1. Events Per Month               *
+            *******************************************
+            """)
+            if user == '1':
+                print('Events Per Month Non US')
+
