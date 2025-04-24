@@ -1,3 +1,9 @@
+"""
+TODO: Add cities that appear more than a certain amount of times (hot spot cities).
+    - Do they appear at cities near airports or military bases?
+"""
+
+
 import pandas as pd
 import matplotlib.pyplot as plt
 
@@ -45,6 +51,14 @@ def world_plot(data, save=False):
     # Show the plot
     else:
         plt.show()
+
+def prepare_cities():
+    rows, columns = fetch_data()
+    df = pd.DataFrame(rows, columns=columns)
+    df.replace('',pd.NA, inplace=True)
+
+    cities = df
+    return cities
 
 # REMOVE # to run individual functions
 
