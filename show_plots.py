@@ -1,8 +1,6 @@
 # This file is used to show all the plots from a menu along with and optional save for each plot
 """
-TODO: Add main menu, sub menu then plot selection
-    (Example: main -> us based events -> events per state in US plot)
-    (Example: main -> world wide events -> events per year plot)
+TODO: Add to Comparison Menu
 """
 import pandas as pd
 from create_df import fetch_data
@@ -38,6 +36,7 @@ def main():
         *       2. World Wide Plots                 *
         *       3. US Based Plots                   *
         *       4. US Excluded Plots                *
+        *       5. Comparison Plots                 *
         *********************************************
         """)
         user = input('Enter Choice: ')
@@ -310,6 +309,22 @@ def main():
             if user == '4':
                 continue
 
+        elif user == '5':
+            print("""
+                *******************************************
+                *       UFO Comparison Plots Menu         *
+                *******************************************
+                *       1. Events Per Year US and Non US  *
+                *       2.                                *
+                *       3.                                *
+                *       4. Back to Main Menu              *
+                *******************************************
+                """)
+            user = input('Enter Choice: ')
+            if user == '1':
+                continue
+            if user == '2':
+                continue
 
 if __name__ == '__main__':
     main()

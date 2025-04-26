@@ -2,8 +2,6 @@
 TODO: Add cities that appear more than a certain amount of times (hot spot cities).
     - Do they appear at cities near airports or military bases?
 """
-from types import new_class
-
 import pandas as pd
 import matplotlib.pyplot as plt
 
@@ -65,7 +63,7 @@ def filter_cities(cities):
     df = df[df['city'].notna()]
     city_count = df.groupby('city').size().reset_index(name='per_city')
     filtered_cities = city_count[city_count['per_city'] > 200]
-    filtered_cities = filtered_cities.merge(df[['city', 'country', 'longitude','latitude']], on='city', how='left')
+    filtered_cities = filtered_cities.merge(df[['city', 'country', 'longitude', 'latitude']], on='city', how='left')
     #print(filtered_cities.columns)
     return filtered_cities
 
@@ -90,9 +88,9 @@ def cities_map_usa(filtered_cities, save=False):
     ax.set_xticks([])
 
     if save:
-        plt.savefig("ufo_sightings_usa_map.png")
-
-    plt.show()
+        plt.savefig("plots\\ufo_sightings_usa_map.png")
+    else:
+        plt.show()
 
 
 
